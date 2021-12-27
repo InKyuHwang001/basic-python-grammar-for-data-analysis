@@ -58,7 +58,7 @@ kimchi.groupby(by=None,       그룹핑 할 컬럼(기준)
 
 ​	`kimchi_2=kimchi.groupby(by=['제품','판매처'])['수량'].sum()`
 
-- 예제)제품벼르 판매처별 수량 총합, 평균
+- 예제)제품별 판매처별 수량 총합, 평균
 
 ```python
 kimchi.groupby(by=['제품','판매처'])['수량'].agg('sum','maen')
@@ -80,7 +80,7 @@ kimchi.groupby(by=['제품','판매처'])[['수량','판매금액']].agg({'수�
 
 ---
 
-### 멜티 레벌을 갖는 경우의 groupby 연산
+### 멀티 레벨을 갖는 경우의 groupby 연산
 
 ---
 
