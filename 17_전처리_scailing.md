@@ -75,57 +75,31 @@ from sklearn.model_selection import train_test_split
 
 train_x,test_x,train_y,test_y=train_test_split(iris_x, iris_y)
 # (1)trian_x,test_x 동일한 기준으로 스케일링
-m_sc1=minmax()
-m_sc1.fit(train_x) #train data set으로만 선드
+mm_2=minmax()
+mm_2.fit(train_x)
 
-train_sc1=m_sc1.transform(train_x)
-test_sc1=m_sc1.transform(test_x)
-#훈련용데이터에 적용
-train_sc1.min(0)     #array([0., 0., 0., 0.])
-train_sc1.max(0)     #array([1., 1., 1., 1.])
-#검증용(테스트)데이터에 적용
-test_sc1.min(0)      #array([ 0.02941176,  0.20833333, -0.01785714,  0.        ]) #0이 아님
-test_sc1.max(0)      #array([1.05882353, 0.91666667, 1.03571429, 1.        ]) #1이 아님
-#------------------------------
+train_mm=mm_2.transform(train_x)
+test_mm=mm_2.transform(test_x)
+
+train_mm.min(0)     #array([0., 0., 0., 0.])
+train_mm.max(0)     #array([1., 1., 1., 1.])
+
+test_mm.min(0)      #array([-0.03030303,  0.16666667,  0.01694915,  0.        ]) #0이 아님
+test_mm.max(0)      # array([1.06060606, 0.79166667, 0.96610169, 0.95833333]) #1이 아님
 # (2)trian_x,test_x 동일한 기준으로 스케일링
-m_sc2=minmax()
-m_sc3=minmax()
+mm_2=minmax()
+mm_3=minmax()
 
-m_sc2.fit(train_x) #trian도 fit함
-m_sc3.fit(test_x) #test도 fit함
+mm_2.fit(train_x)
+mm_3.fit(train_x)
 
-train_sc_2=m_sc2.transform(train_x)
-test_sc_2=m_sc3.transform(train_x)
+train_mm_2=mm_2.transform(train_x)
+test_mm_2=mm_3.transform(train_x)
 
-train_sc_2.min() #0.0
-train_sc_2.max() #1.0
+train_mm_2.min() #0.0
+train_mm_2.max() #1.0
 
-test_sc_2.min() #0.0
-test_sc_2.max() #1.0
-
-# scaling 시각화
-# (1) figure, subplot 생성
-import matplotlib.pyplot as plt
-fig, ax = plt.subplots(1,3)
-
-# (2) 원본 data의 산점도
-import mglearn
-
-ax[0].scatter(train_x[:,0], train_x[:,1], c=mglearn.cm2(0), label='train')
-ax[0].scatter(test_x[:,0], test_x[:,1], c=mglearn.cm2(1), label='test')
-ax[0].legend()
-ax[0].set_title('raw data')
-
-# (3) 올바른 스케일링 data의 산점도(train_x_sc1, test_x_sc1)
-ax[1].scatter(train_sc1[:,0], train_sc1[:,1], c=mglearn.cm2(0), label='train')
-ax[1].scatter(test_sc1[:,0], test_sc1[:,1], c=mglearn.cm2(1), label='test')
-ax[1].legend()
-ax[1].set_title('good scaing data')
-
-# (4) 잘못된 스케일링 data의 산점도(train_x_sc2, test_x_sc2)
-ax[2].scatter(train_sc_2[:,0], train_sc_2[:,1], c=mglearn.cm2(0), label='train')
-ax[2].scatter(test_sc_2[:,0], test_sc_2[:,1], c=mglearn.cm2(1), label='test')
-ax[2].legend()
-ax[2].set_title('bad scaling data')
+test_mm_2.min() #0.0
+test_mm_2.max() #1.0
 
 # 3)Robust Scailing
